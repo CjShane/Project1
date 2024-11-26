@@ -1,7 +1,9 @@
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 public class Main {
-    public static void main(String[] args) throws MalformedURLException {
+    public static void main(String[] args) throws IOException {
+
         URL[] corpus = {
             // Pride and Prejudice, by Jane Austen
             new URL ( "https://www.gutenberg.org/files/1342/1342-0.txt" ),
@@ -20,6 +22,6 @@ public class Main {
                 // The Wisdom of Father Brown, by G.K. Chesterton
             new URL ( "https://www.gutenberg.org/files/223/223-0.txt" ),
         };
-        Synonyms synonyms = new Synonyms(corpus);
+        Synonyms synonyms = new Synonyms(corpus, "the");
     }
 }
