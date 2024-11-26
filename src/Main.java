@@ -22,6 +22,6 @@ public class Main {
                 // The Wisdom of Father Brown, by G.K. Chesterton
             new URL ( "https://www.gutenberg.org/files/223/223-0.txt" ),
         };
-        Synonyms synonyms = new Synonyms(corpus, "the");
+        Synonyms synonyms = new Synonyms(new URL ( "https://www.gutenberg.org/files/223/223-0.txt" ), "the");
     }
 }

@@ -16,7 +16,7 @@ public class Synonyms {
     }
     public void parseCorpus(URL corpus) throws IOException {
         System.out.println(corpus);
-        URLConnection con = cop.openConnection();
+        URLConnection con = corpus.openConnection();
         InputStream is = con.getInputStream();
         Scanner parser = new Scanner(is).useDelimiter("[.?!]|\\Z");
         int count = 1;
@@ -32,4 +32,5 @@ public class Synonyms {
 //            count++;
 //            }
     }
-}
+
+
