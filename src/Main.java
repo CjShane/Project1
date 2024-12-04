@@ -23,6 +23,6 @@ public class Main {
             new URL ( "https://www.gutenberg.org/files/223/223-0.txt" ),
         };
         //Synonyms synonyms = new Synonyms(new URL ( "https://www.gutenberg.org/files/223/223-0.txt" ), "the");
-        Synonyms synonyms = new Synonyms(new URL ( "https://www.gutenberg.org/files/223/223-0.txt" ), "book");
+        Synonyms synonyms = new Synonyms(corpus);
     }
 }
