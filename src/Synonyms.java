@@ -12,7 +12,6 @@ public class Synonyms {
         parseCorpus(corpus);
     }
     public void parseCorpus(URL[] corpus) throws IOException {
-        int count = 0;
         for(int i = 0; i < corpus.length; i++) {
             URL current = corpus[i];
             System.out.println(current);
@@ -22,31 +21,64 @@ public class Synonyms {
             // read each line and write to System.out
             try{
                 while (parser.hasNext()) {
+                    // get the first sentence from the website and convert into a more usable format
                     line = parser.next();
+                    line = line.replaceAll("[^a-zA-Z ]", "");
                     line = Arrays.toString(line.replaceAll("\\W+\\d+" , ""  ).toLowerCase().split("\\s+"));
                     line = line.replaceAll("[^a-zA-Z ]", "");
                     line = line.trim();
-                    for(int j = 0; j < line.length(); j++){
-                        String word = line.
-                        HashMap<String, Integer> map = new HashMap<>();
-                        if(!map.containsKey(word)){
-                            map.put(word, map.put(word, 1));
-                        }else{
-                            map.put(word, map.get(word) + 1);
+
+                    String word1 = "";
+                    String word2 = "";
+                    int wordEnd = 0;
+                    for(int j = 0; j < line.length() - 1; j = wordEnd) {
+                        word1 = "";
+                        int wordStart = j;
+                        while(line.charAt(wordEnd) != ' ' && wordEnd < line.length() - 1) {
+                            word1 += line.charAt(wordEnd) + "";
+                            wordEnd++;
                         }
 
-                        descriptors.put(word, map);
+                        for(int k =0; k < line.length() - 1; k++) {
+                            word2 = "";
+
+                            if(k == wordStart && wordEnd != line.length() - 1)
+                                k = ++wordEnd;
+                            while (line.charAt(k) != ' ' && k < line.length() - 1) {
+                                word2 += line.charAt(k) + "";
+                                k++;
+                            }
+
+                            HashMap<String, Integer> temp;
+                            temp = descriptors.get(word1);
+                            if(temp == null){
+                                temp = new HashMap<String, Integer>();
+                                descriptors.put(word1, temp);
+                            }
+                            if(temp.get(word2) == null){
+                                temp.put(word2, 1);
+                            }else{
+                                temp.put(word2, temp.get(word2) + 1);
+                            }
+
+//                        if(!descriptors.getValue(word1,  )){
+//                            temp.put(word2, 1);
+//                        }else{
+//                            temp.put(word1, temp.get(word1) + 1);
+//                        }
+//                            if (!word1.equals(word2)) {
+//                                descriptors.put(word1, temp);
+//                            }
+                        }
                     }
-                    //descriptors.put(count++, line );
+                    //descriptors.put(wordEnd++, line );
                 }
             }catch(NoSuchElementException _) {}
         }
-        while(count != 0) {
-            //String words = semantic.get(count--);
-            //words = words.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
-            System.out.println(descriptors.get(count--));
-            System.out.println();
-        }
+//        while(wordEnd != 0) {
+//            System.out.println(descriptors.get(wordEnd--));
+//            System.out.println();
+//        }
     }
 //    public double calculateCosineSimilarity(String word1, String word2) {
 //
