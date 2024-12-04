@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -22,7 +21,18 @@ public class Main {
                 // The Wisdom of Father Brown, by G.K. Chesterton
             new URL ( "https://www.gutenberg.org/files/223/223-0.txt" ),
         };
-        //Synonyms synonyms = new Synonyms(new URL ( "https://www.gutenberg.org/files/223/223-0.txt" ), "the");
-        Synonyms synonyms = new Synonyms(corpus, "man");
+
+        Synonyms synonyms = new Synonyms(corpus);
+        System.out.println("synonym: " + synonyms.calculateCosineSimilarity("vexed", "synonym"));
+        System.out.println("annoyed: " + synonyms.calculateCosineSimilarity("vexed", "annoyed"));
+        System.out.println("book: " + synonyms.calculateCosineSimilarity("vexed", "book"));
+        System.out.println("spellbound: " + synonyms.calculateCosineSimilarity("vexed", "spellbound"));
+        System.out.println();
+        System.out.println("rural: " + synonyms.calculateCosineSimilarity("provincial", "rural"));
+        System.out.println("cosmopolitan: " + synonyms.calculateCosineSimilarity("provincial", "cosmopolitan"));
+        System.out.println("forested: " + synonyms.calculateCosineSimilarity("provincial", "forested"));
+        System.out.println("horse: " + synonyms.calculateCosineSimilarity("provincial", "horse"));
+
+
     }
 }
