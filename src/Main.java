@@ -1,5 +1,21 @@
 import java.io.IOException;
 import java.net.URL;
+import java.util.Scanner;
+
+
+/**
+ * The Main class demonstrates the usage of the Synonyms class by calculating cosine similarity between words
+ * based on a corpus of classic texts. It also reads a list of words from an input file, compares each word to
+ * others in the file, and identifies the most similar word based on cosine similarity.
+ * <p>
+ * The class works as follows:
+ * <ul>
+ *   <li>It creates a Synonyms object to analyze the texts and calculate the cosine similarity between word pairs.</li>
+ *   <li>It outputs cosine similarities for predefined word pairs.</li>
+ *   <li>It reads words from an input file and finds the word most similar to a given word in the file.</li>
+ * </ul>
+ */
+
 public class Main {
     public static void main(String[] args) throws IOException {
 
@@ -32,7 +48,31 @@ public class Main {
         System.out.println("cosmopolitan: " + synonyms.calculateCosineSimilarity("provincial", "cosmopolitan"));
         System.out.println("forested: " + synonyms.calculateCosineSimilarity("provincial", "forested"));
         System.out.println("horse: " + synonyms.calculateCosineSimilarity("provincial", "horse"));
+        System.out.println();
 
+
+        FileInOut fio = new FileInOut ( "infile.txt", "outfile.txt", true );
+        Scanner in = fio.getInFile();
+
+
+        String word = in.next();
+        System.out.println("word: " + word);
+        String closestMatch = "null";
+        double closeNum = -1;
+
+        // I have no idea why running this gives different values than running them manually
+        while ( in.hasNext() )
+        {
+            String potentialSynonyms = in.next();
+            if(synonyms.calculateCosineSimilarity(word, potentialSynonyms) > closeNum) {
+                closestMatch = potentialSynonyms;
+                closeNum = synonyms.calculateCosineSimilarity(word, potentialSynonyms);
+            }
+            System.out.println(potentialSynonyms + ": " + synonyms.calculateCosineSimilarity(word, potentialSynonyms));
+        }
+        System.out.println("Most Similar: " + closestMatch);
+
+        fio.closeFiles();
 
     }
 }
